@@ -1,0 +1,89 @@
+spring:
+  application:
+    name: velocira-backend
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/velocira}
+    username: ${DATABASE_USERNAME:velocira}
+    password: ${DATABASE_PASSWORD:velocira}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate   # schema is owned by Flyway migrations, not Hibernate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  mail:
+    host: ${EMAIL_SMTP_HOST:smtp.resend.com}
+    port: ${EMAIL_SMTP_PORT:587}
+    username: ${EMAIL_API_KEY:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 15MB
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never   # never leak raw backend errors to clients (spec §48)
+    include-stacktrace: never
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+  brevo:
+    api-key: ${BREVO_API_KEY:}
+    sender-email: ${BREVO_SENDER_EMAIL:no-reply@wheelsonrentals.com}
+    sender-name: ${BREVO_SENDER_NAME:Wheels On Rentals}
+  jwt:
+    secret: ${JWT_SECRET:7d9a1f2e3c4b5a69788796a5b4c3d2e1f0e1d2c3b4a5968778695a4b3c2d1e0f}
+    access-token-ttl-minutes: 1440 # 24 hours for development ease
+    refresh-token-ttl-days: 30
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+  business:
+    currency: INR
+    min-rental-hours: 4
+    max-rental-days: 30
+    tax-rate-percent: 18
+  storage:
+    provider: cloudinary
+    cloudinary-url: ${CLOUDINARY_URL:}
+  notification:
+    sms-api-key: ${SMS_API_KEY:}
+  payment:
+    provider: razorpay
+    key-id: ${PAYMENT_KEY_ID:}
+    api-key: ${PAYMENT_API_KEY:}
+    webhook-secret: ${PAYMENT_WEBHOOK_SECRET:}
+  ai:
+    api-key: ${AI_API_KEY:}
+    model: ${AI_MODEL:llama3-8b-8192}
+
+logging:
+  level:
+    com.velocira: INFO
+    org.hibernate.SQL: WARN
+    org.springframework.security: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never

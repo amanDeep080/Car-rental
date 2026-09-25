@@ -1,0 +1,40 @@
+package com.velocira.dto.car;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
+
+public record CarDetailDto(
+    UUID id,
+    String slug,
+    String brand,
+    String model,
+    String variant,
+    int year,
+    String category,
+    String fuel,
+    String transmission,
+    int seats,
+    Integer doors,
+    String engine,
+    String power,
+    String mileagePolicy,
+    BigDecimal pricePerSixHours,
+    BigDecimal pricePerTwelveHours,
+    BigDecimal pricePerTwentyFourHours,
+    BigDecimal pricePerDay,
+    BigDecimal pricePerWeek,
+    BigDecimal pricePerMonth,
+    BigDecimal securityDeposit,
+    UUID locationId,
+    String locationCity,
+    String status,
+    String description,
+    String rentalPolicy,
+    List<String> features,
+    List<String> imageUrls,
+    double rating,
+    int reviewCount,
+    boolean currentlyBooked,
+    java.time.Instant bookedUntil
+) {}
