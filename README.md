@@ -478,4 +478,4 @@ completed bookings in the dashboard.
 with every backend phase so far, **not compiled in this sandbox** (no
 Maven Central access here) — run `mvn clean compile` locally before
 trusting it. The new CI workflow will do exactly that automatically on
-your next push, alongside the frontend checks.
+your next push, alongside the frontend checks
